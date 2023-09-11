@@ -1,3 +1,4 @@
+#dos'nt work (yet)
 class Diamond:
 
     def __init__(self, size):
