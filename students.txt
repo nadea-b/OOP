@@ -1,0 +1,2 @@
+First Name	Last Name	Faculty Abbreviation	Email	Date of birth	Enrollment Date
+John	Addams	AR	adams.john@mail.com	2004/10/9	2023/10/4
