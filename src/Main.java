@@ -17,13 +17,14 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("You selected 'Commit'");
-                    // Create an instance of the Commit class
-                    Commit commit = new Commit();
-                    // Call the updateSnapshot method to update the snapshot time
-                    commit.updateSnapshot();
-                    System.out.println("Snapshot time updated.");
+                    System.out.println("You selected 'Take Snapshot'");
+                    SnapshotRecorder snapshotRecorder = new SnapshotRecorder();
+                    snapshotRecorder.takeSnapshot();
+                    System.out.println("Snapshot taken at: " + snapshotRecorder.getSnapshotTime());
+                    snapshotRecorder.saveStateToTextFile("snapshot.txt"); // Save the state to a text file
                     break;
+
+
                 case 2:
                     System.out.print("Enter the filename for 'Info': ");
                     String filename = scanner.nextLine();
