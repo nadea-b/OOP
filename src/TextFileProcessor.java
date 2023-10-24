@@ -7,11 +7,9 @@ public class TextFileProcessor extends FileProcessor {
         textFileProcessor.process("D:\\exemplu", "file_list.txt");
 
         // Count the number of lines and words in the text file
-        int[] counts = textFileProcessor.countLinesAndWordsInFile("file_list.txt");
+        int[] counts = textFileProcessor.countLinesAndWordsAndCharactersInFile("file_list.txt");
         int lineCount = counts[0];
         int wordCount = counts[1];
-        System.out.println("Number of lines in the file: " + lineCount);
-        System.out.println("Number of words in the file: " + wordCount);
     }
 
     @Override
@@ -35,12 +33,13 @@ public class TextFileProcessor extends FileProcessor {
                             String fileName = file.getName();
                             String fileExtension = getFileExtension(fileName);
                             String creationDate = getFileCreationDate(file);
-                            int[] counts = countLinesAndWordsInFile(file.getPath());
+                            int[] counts = countLinesAndWordsAndCharactersInFile(file.getPath());
                             int lineCount = counts[0];
                             int wordCount = counts[1];
+                            int charCount = counts[2];
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
                                     ", Creation Date: " + creationDate + ", Line Count: " + lineCount +
-                                    ", Word Count: " + wordCount;
+                                    ", Word Count: " + wordCount + ", Character Count: " + charCount;
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed TXT file: " + fileName);
                         }
@@ -53,9 +52,25 @@ public class TextFileProcessor extends FileProcessor {
         }
     }
 
-    private int[] countLinesAndWordsInFile(String filePath) {
+
+    private int countCharactersInFile(String filePath) {
+        int charCount = 0;
+        try (Reader reader = new FileReader(filePath)) {
+            int data;
+            while ((data = reader.read()) != -1) {
+                charCount++;
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while counting characters: " + e.getMessage());
+        }
+        return charCount;
+    }
+
+
+    private int[] countLinesAndWordsAndCharactersInFile(String filePath) {
         int lineCount = 0;
         int wordCount = 0;
+        int charCount = 0;
         Scanner scanner = null;
 
         try {
@@ -63,26 +78,20 @@ public class TextFileProcessor extends FileProcessor {
             scanner.useDelimiter("\\s+"); // Use whitespace as the delimiter to count words
 
             while (scanner.hasNextLine()) {
-                scanner.nextLine();
+                String line = scanner.nextLine();
                 lineCount++;
-            }
-
-            scanner.close(); // Close and reopen the scanner to reset position
-            scanner = new Scanner(new File(filePath));
-            scanner.useDelimiter("\\s+"); // Use whitespace as the delimiter to count words
-
-            while (scanner.hasNext()) {
-                scanner.next();
-                wordCount++;
+                wordCount += line.split("\\s+").length; // Split the line into words and count
+                charCount += line.length(); // Count characters in the line
             }
         } catch (IOException e) {
-            System.err.println("An error occurred while counting lines and words: " + e.getMessage());
+            System.err.println("An error occurred while counting lines, words, and characters: " + e.getMessage());
         } finally {
             if (scanner != null) {
                 scanner.close();
             }
         }
 
-        return new int[]{lineCount, wordCount};
+        return new int[]{lineCount, wordCount, charCount};
     }
+
 }
