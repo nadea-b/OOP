@@ -5,7 +5,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Main Menu");
+            System.out.println("\nMain Menu\nChoose one option:");
             System.out.println("1. Commit");
             System.out.println("2. Info");
             System.out.println("3. Status");
