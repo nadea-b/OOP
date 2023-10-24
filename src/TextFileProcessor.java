@@ -22,7 +22,7 @@ public class TextFileProcessor extends FileProcessor {
 
     private void processTextFiles(String folderPath, String outputFilePath) {
         try {
-            FileWriter fileWriter = new FileWriter(outputFilePath);
+            FileWriter fileWriter = new FileWriter(outputFilePath, true);
 
             File folder = new File(folderPath);
             if (folder.exists() && folder.isDirectory()) {
@@ -93,5 +93,4 @@ public class TextFileProcessor extends FileProcessor {
 
         return new int[]{lineCount, wordCount, charCount};
     }
-
 }
