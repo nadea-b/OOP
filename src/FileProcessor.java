@@ -7,7 +7,7 @@ import java.util.Date;
 public class FileProcessor {
     public void process(String folderPath, String outputFilePath) {
         try {
-            FileWriter fileWriter = new FileWriter(outputFilePath);
+            FileWriter fileWriter = new FileWriter(outputFilePath, true);
 
             File folder = new File(folderPath);
             if (folder.exists() && folder.isDirectory()) {
@@ -20,10 +20,10 @@ public class FileProcessor {
                             String creationDate = getFileCreationDate(file);
 
                             // Create a string with the file information
-                            String fileData = "File: " + fileName + ", Extension: " + fileExtension + ", Creation Date: " + creationDate;
+                          //  String fileData = "File: " + fileName + ", Extension: " + fileExtension + ", Creation Date: " + creationDate;
 
                             // Write the file information to the output file
-                            fileWriter.write(fileData + "\n");
+                           // fileWriter.write(fileData + "\n");
                         }
                     }
                 }
