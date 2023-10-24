@@ -35,7 +35,7 @@ public class ImageFileProcessor extends FileProcessor {
                             int[] imageSize = getImageSize(file);
 
                             // Register the image information in the "file_list.txt" file, including size
-                            String fileData = "Image File: " + fileName + ", Extension: " + fileExtension +
+                            String fileData = "File: " + fileName + ", Extension: " + fileExtension +
                                     ", Creation Date: " + creationDate + ", Width: " + imageSize[0] + ", Height: " + imageSize[1];
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed image file: " + fileName);
