@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.Date;
 
-public class Commit {
+public class SnapshotRecorder {
     private Date snapshotTime;
     private String fileName = "snapshot.txt";
 
-    public Commit() {
+    public SnapshotRecorder() {
         loadSnapshotTime();
     }
 
@@ -50,7 +50,7 @@ public class Commit {
     }
 
     public static void main(String[] args) {
-        Commit snapshotRecorder = new Commit();
+        SnapshotRecorder snapshotRecorder = new SnapshotRecorder();
 
         System.out.println("Loaded Snapshot Time: " + snapshotRecorder.getSnapshotTime());
 
