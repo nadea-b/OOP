@@ -6,9 +6,12 @@ public class TextFileProcessor extends FileProcessor {
         TextFileProcessor textFileProcessor = new TextFileProcessor();
         textFileProcessor.process("D:\\exemplu", "file_list.txt");
 
-        // Count the number of lines in the text file
-        int lineCount = textFileProcessor.countLinesInFile("file_list.txt");
+        // Count the number of lines and words in the text file
+        int[] counts = textFileProcessor.countLinesAndWordsInFile("file_list.txt");
+        int lineCount = counts[0];
+        int wordCount = counts[1];
         System.out.println("Number of lines in the file: " + lineCount);
+        System.out.println("Number of words in the file: " + wordCount);
     }
 
     @Override
@@ -32,9 +35,12 @@ public class TextFileProcessor extends FileProcessor {
                             String fileName = file.getName();
                             String fileExtension = getFileExtension(fileName);
                             String creationDate = getFileCreationDate(file);
-                            int lineCount = countLinesInFile(file.getPath());
+                            int[] counts = countLinesAndWordsInFile(file.getPath());
+                            int lineCount = counts[0];
+                            int wordCount = counts[1];
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
-                                    ", Creation Date: " + creationDate + ", Line Count: " + lineCount;
+                                    ", Creation Date: " + creationDate + ", Line Count: " + lineCount +
+                                    ", Word Count: " + wordCount;
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed TXT file: " + fileName);
                         }
@@ -47,16 +53,36 @@ public class TextFileProcessor extends FileProcessor {
         }
     }
 
-    private static int countLinesInFile(String filePath) {
+    private int[] countLinesAndWordsInFile(String filePath) {
         int lineCount = 0;
-        try (Scanner scanner = new Scanner(new File(filePath))) {
+        int wordCount = 0;
+        Scanner scanner = null;
+
+        try {
+            scanner = new Scanner(new File(filePath));
+            scanner.useDelimiter("\\s+"); // Use whitespace as the delimiter to count words
+
             while (scanner.hasNextLine()) {
                 scanner.nextLine();
                 lineCount++;
             }
+
+            scanner.close(); // Close and reopen the scanner to reset position
+            scanner = new Scanner(new File(filePath));
+            scanner.useDelimiter("\\s+"); // Use whitespace as the delimiter to count words
+
+            while (scanner.hasNext()) {
+                scanner.next();
+                wordCount++;
+            }
         } catch (IOException e) {
-            System.err.println("An error occurred while counting lines: " + e.getMessage());
+            System.err.println("An error occurred while counting lines and words: " + e.getMessage());
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
-        return lineCount;
+
+        return new int[]{lineCount, wordCount};
     }
 }
