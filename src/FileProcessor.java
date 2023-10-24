@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FileProcessor {
     public void process(String folderPath, String outputFilePath) {
@@ -43,7 +45,9 @@ public class FileProcessor {
     protected String getFileCreationDate(File file) {
         try {
             long creationTime = file.lastModified();
-            return String.valueOf(creationTime);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date(creationTime);
+            return dateFormat.format(date);
         } catch (Exception e) {
             System.err.println("Error getting creation date: " + e.getMessage());
             return "N/A";
