@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PythonFileProcessor extends FileProcessor {
     public static void main(String[] args) {
@@ -29,10 +31,12 @@ public class PythonFileProcessor extends FileProcessor {
                             String fileExtension = getFileExtension(fileName);
                             String creationDate = getFileCreationDate(file);
                             int lineCount = countLinesInFile(file);
+                            int classCount = countClassesInFile(file);
 
                             // Register the Python file information in the "python_file_list.txt" file
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
-                                    ", Creation Date: " + creationDate + ", Line Count: " + lineCount;
+                                    ", Creation Date: " + creationDate + ", Line Count: " + lineCount +
+                                    ", Class Count: " + classCount;
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed Python file: " + fileName);
                         }
@@ -61,5 +65,21 @@ public class PythonFileProcessor extends FileProcessor {
             System.err.println("An error occurred while counting lines in the file: " + e.getMessage());
         }
         return lineCount;
+    }
+
+    private int countClassesInFile(File file) {
+        int classCount = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.matches("^\\s*class\\s+\\w+\\s*:.*")) {
+                    // Match lines that define a class using regular expression
+                    classCount++;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while counting classes in the file: " + e.getMessage());
+        }
+        return classCount;
     }
 }
