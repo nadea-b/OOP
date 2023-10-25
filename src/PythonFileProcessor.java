@@ -28,10 +28,11 @@ public class PythonFileProcessor extends FileProcessor {
                             String fileName = file.getName();
                             String fileExtension = getFileExtension(fileName);
                             String creationDate = getFileCreationDate(file);
+                            int lineCount = countLinesInFile(file);
 
                             // Register the Python file information in the "python_file_list.txt" file
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
-                                    ", Creation Date: " + creationDate;
+                                    ", Creation Date: " + creationDate + ", Line Count: " + lineCount;
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed Python file: " + fileName);
                         }
@@ -48,5 +49,17 @@ public class PythonFileProcessor extends FileProcessor {
         // Check if the file extension is ".py"
         String fileExtension = getFileExtension(file.getName());
         return "py".equalsIgnoreCase(fileExtension);
+    }
+
+    private int countLinesInFile(File file) {
+        int lineCount = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            while (reader.readLine() != null) {
+                lineCount++;
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while counting lines in the file: " + e.getMessage());
+        }
+        return lineCount;
     }
 }
