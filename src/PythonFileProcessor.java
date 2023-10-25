@@ -17,7 +17,7 @@ public class PythonFileProcessor extends FileProcessor {
         super.process(folderPath, outputFilePath);
     }
 
-    private void processPythonFiles(String folderPath, String outputFilePath) {
+    protected void processPythonFiles(String folderPath, String outputFilePath) {
         try {
             FileWriter fileWriter = new FileWriter(outputFilePath, true); // Append to the file
 
