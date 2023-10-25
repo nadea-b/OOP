@@ -20,7 +20,7 @@ public class TextFileProcessor extends FileProcessor {
         processTextFiles(folderPath, outputFilePath);
     }
 
-    private void processTextFiles(String folderPath, String outputFilePath) {
+    protected void processTextFiles(String folderPath, String outputFilePath) {
         try {
             FileWriter fileWriter = new FileWriter(outputFilePath, true);
 

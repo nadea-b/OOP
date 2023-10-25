@@ -17,7 +17,7 @@ public class ImageFileProcessor extends FileProcessor {
 
     }
 
-    private void processImageFiles(String folderPath, String outputFilePath) {
+    protected void processImageFiles(String folderPath, String outputFilePath) {
         try {
             FileWriter fileWriter = new FileWriter(outputFilePath, true); // Append to the file
 
