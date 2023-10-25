@@ -26,11 +26,12 @@ public class Main {
 
 
                 case 2:
-                    System.out.print("Enter the filename for 'Info': ");
-                    String filename = scanner.nextLine();
-                    System.out.println("You selected 'Info' for file: " + filename);
-                    // Add your info logic here with the provided filename
+
+                    // Call the main method of FileInfoSearcher to search for the specified file in the file list
+                    FileInfoSearcher.main(new String[0]);
+
                     break;
+
                 case 3:
                     System.out.println("You selected 'Status'");
                     // Add your status logic here
