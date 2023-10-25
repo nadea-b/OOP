@@ -32,11 +32,12 @@ public class PythonFileProcessor extends FileProcessor {
                             String creationDate = getFileCreationDate(file);
                             int lineCount = countLinesInFile(file);
                             int classCount = countClassesInFile(file);
+                            int methodCount = countMethodsInFile(file);
 
                             // Register the Python file information in the "python_file_list.txt" file
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
                                     ", Creation Date: " + creationDate + ", Line Count: " + lineCount +
-                                    ", Class Count: " + classCount;
+                                    ", Class Count: " + classCount + ", Method Count: " + methodCount;
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed Python file: " + fileName);
                         }
@@ -48,6 +49,7 @@ public class PythonFileProcessor extends FileProcessor {
             System.err.println("An error occurred while processing Python files: " + e.getMessage());
         }
     }
+
 
     private boolean isPythonFile(File file) {
         // Check if the file extension is ".py"
@@ -72,7 +74,7 @@ public class PythonFileProcessor extends FileProcessor {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.matches("^\\s*class\\s+\\w+\\s*:.*")) {
+                if (line.matches("^\\s*class\\s+\\w+(\\s*\\(\\s*\\w+\\s*\\))?\\s*:.*")) {
                     // Match lines that define a class using regular expression
                     classCount++;
                 }
@@ -82,4 +84,27 @@ public class PythonFileProcessor extends FileProcessor {
         }
         return classCount;
     }
+
+    private int countMethodsInFile(File file) {
+        int methodCount = 0;
+        boolean insideClass = false;
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.matches("^\\s*class\\s+\\w+(\\s*\\(\\s*\\w+\\s*\\))?\\s*:.*")) {
+                    // Match lines that define a class using regular expression
+                    insideClass = true;
+                } else if (insideClass) {
+                    if (line.matches("^\\s{4,}def\\s+\\w+\\s*\\(.*\\)\\s*:.*")) {
+                        // Match lines that define a method inside a class using regular expression
+                        methodCount++;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while counting methods in the file: " + e.getMessage());
+        }
+        return methodCount;
+    }
+
 }
