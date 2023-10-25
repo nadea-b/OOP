@@ -30,13 +30,15 @@ public class PythonFileProcessor extends FileProcessor {
                             String fileName = file.getName();
                             String fileExtension = getFileExtension(fileName);
                             String creationDate = getFileCreationDate(file);
+                            String lastModifiedTime = getFileLastModifiedTime(file);
                             int lineCount = countLinesInFile(file);
                             int classCount = countClassesInFile(file);
                             int methodCount = countMethodsInFile(file);
 
+
                             // Register the Python file information in the "python_file_list.txt" file
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
-                                    ", Creation Date: " + creationDate + ", Line Count: " + lineCount +
+                                    ", Creation Date: " + creationDate + ", Modification Date: " + lastModifiedTime + ", Line Count: " + lineCount +
                                     ", Class Count: " + classCount + ", Method Count: " + methodCount;
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed Python file: " + fileName);

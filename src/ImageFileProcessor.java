@@ -30,13 +30,14 @@ public class ImageFileProcessor extends FileProcessor {
                             String fileName = file.getName();
                             String fileExtension = getFileExtension(fileName);
                             String creationDate = getFileCreationDate(file);
+                            String lastModifiedTime = getFileLastModifiedTime(file);
 
                             // Get image size
                             int[] imageSize = getImageSize(file);
 
                             // Register the image information in the "file_list.txt" file, including size
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
-                                    ", Creation Date: " + creationDate + ", Width: " + imageSize[0] + ", Height: " + imageSize[1];
+                                    ", Creation Date: " + creationDate + ", Modification Date: " + lastModifiedTime + ", Width: " + imageSize[0] + ", Height: " + imageSize[1];
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed image file: " + fileName);
                         }

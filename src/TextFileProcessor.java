@@ -33,12 +33,13 @@ public class TextFileProcessor extends FileProcessor {
                             String fileName = file.getName();
                             String fileExtension = getFileExtension(fileName);
                             String creationDate = getFileCreationDate(file);
+                            String lastModifiedTime = getFileLastModifiedTime(file);
                             int[] counts = countLinesAndWordsAndCharactersInFile(file.getPath());
                             int lineCount = counts[0];
                             int wordCount = counts[1];
                             int charCount = counts[2];
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
-                                    ", Creation Date: " + creationDate + ", Line Count: " + lineCount +
+                                    ", Creation Date: " + creationDate + ", Modification Date: " + lastModifiedTime + ", Line Count: " + lineCount +
                                     ", Word Count: " + wordCount + ", Character Count: " + charCount;
                             fileWriter.write(fileData + "\n");
                             System.out.println("Processed TXT file: " + fileName);
