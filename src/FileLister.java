@@ -5,6 +5,12 @@ public class FileLister {
         // Specify the folder path
         String folderPath = "D:\\exemplu";
 
+        // Clear the contents of file_list.txt by deleting it (optional).
+        File fileListFile = new File("file_list.txt");
+        if (fileListFile.exists()) {
+            fileListFile.delete();
+        }
+
         File folder = new File(folderPath);
         iterateAndProcessFiles(folderPath, folder);
     }
