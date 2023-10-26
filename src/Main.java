@@ -11,8 +11,8 @@ public class Main {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
         executorService.scheduleAtFixedRate(() -> {
-            System.out.println("Running 'Status' command in the background...");
-            DirectoryComparator.main(new String[0]);
+           // System.out.println("Running 'Status' command in the background...");
+            DirectoryComparatorBackground.main(new String[0]);
             FileLister.main(new String[0]);
         }, 0, 5, TimeUnit.SECONDS);
 
@@ -41,6 +41,8 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("You selected 'Status'");
+                    DirectoryComparator.main(new String[0]);
+                    FileLister.main(new String[0]);
                     break;
                 case 4:
                     System.out.println("Exiting the program. Goodbye!");
