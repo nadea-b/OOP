@@ -34,7 +34,8 @@ public class Main {
 
                 case 3:
                     System.out.println("You selected 'Status'");
-                    FileChangeChecker.main(new String[0]);
+                    DirectoryComparator.main(new String[0]);
+                    FileLister.main(new String[0]);
                     break;
                 case 4:
                     System.out.println("Exiting the program. Goodbye!");
