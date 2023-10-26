@@ -42,7 +42,7 @@ public class TextFileProcessor extends FileProcessor {
                                     ", Creation Date: " + creationDate + ", Modification Date: " + lastModifiedTime + ", Line Count: " + lineCount +
                                     ", Word Count: " + wordCount + ", Character Count: " + charCount;
                             fileWriter.write(fileData + "\n");
-                            System.out.println("Processed TXT file: " + fileName);
+                           // System.out.println("Processed TXT file: " + fileName);
                         }
                     }
                 }

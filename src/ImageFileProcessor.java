@@ -39,7 +39,7 @@ public class ImageFileProcessor extends FileProcessor {
                             String fileData = "File: " + fileName + ", Extension: " + fileExtension +
                                     ", Creation Date: " + creationDate + ", Modification Date: " + lastModifiedTime + ", Width: " + imageSize[0] + ", Height: " + imageSize[1];
                             fileWriter.write(fileData + "\n");
-                            System.out.println("Processed image file: " + fileName);
+                           // System.out.println("Processed image file: " + fileName);
                         }
                     }
                 }

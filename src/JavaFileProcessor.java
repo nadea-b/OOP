@@ -41,7 +41,7 @@ public class JavaFileProcessor extends FileProcessor {
                                     ", Line Count: " + lineCount + ", Class Count: " + classCount +
                                     ", Method Count: " + methodCount;
                             fileWriter.write(fileData + "\n");
-                            System.out.println("Processed Java file: " + fileName);
+                           // System.out.println("Processed Java file: " + fileName);
                         }
                     }
                 }

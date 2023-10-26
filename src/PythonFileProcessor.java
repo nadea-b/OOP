@@ -41,7 +41,7 @@ public class PythonFileProcessor extends FileProcessor {
                                     ", Creation Date: " + creationDate + ", Modification Date: " + lastModifiedTime + ", Line Count: " + lineCount +
                                     ", Class Count: " + classCount + ", Method Count: " + methodCount;
                             fileWriter.write(fileData + "\n");
-                            System.out.println("Processed Python file: " + fileName);
+                           // System.out.println("Processed Python file: " + fileName);
                         }
                     }
                 }
