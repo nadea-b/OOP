@@ -1,26 +1,36 @@
 import java.util.EmptyStackException;
 
-public class ArrayQueue<E> implements Queue<E> {
-    private static final int DEFAULT_CAPACITY = 10;
-    private E[] array;
-    private int front;
-    private int rear;
+public class LinkedQueue<E> implements Queue<E> {
+    private class Node {
+        E data;
+        Node next;
+
+        Node(E data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node front; // Reference to the front (head) of the queue
+    private Node rear;  // Reference to the rear (tail) of the queue
     private int size;
 
-    public ArrayQueue() {
-        array = (E[]) new Object[DEFAULT_CAPACITY];
-        front = 0;
-        rear = -1;
+    public LinkedQueue() {
+        front = null;
+        rear = null;
         size = 0;
     }
 
     @Override
     public void enqueue(E item) {
-        if (size == array.length) {
-            resizeArray();
+        Node newNode = new Node(item);
+        if (isEmpty()) {
+            front = newNode;
+            rear = newNode;
+        } else {
+            rear.next = newNode;
+            rear = newNode;
         }
-        rear = (rear + 1) % array.length;
-        array[rear] = item;
         size++;
     }
 
@@ -29,9 +39,12 @@ public class ArrayQueue<E> implements Queue<E> {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        E item = array[front];
-        front = (front + 1) % array.length;
+        E item = front.data;
+        front = front.next;
         size--;
+        if (isEmpty()) {
+            rear = null; // If the queue is now empty, set rear to null
+        }
         return item;
     }
 
@@ -40,7 +53,7 @@ public class ArrayQueue<E> implements Queue<E> {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        return array[front];
+        return front.data;
     }
 
     @Override
@@ -53,19 +66,8 @@ public class ArrayQueue<E> implements Queue<E> {
         return size;
     }
 
-    private void resizeArray() {
-        int newCapacity = array.length * 2;
-        E[] newArray = (E[]) new Object[newCapacity];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = array[(front + i) % array.length];
-        }
-        array = newArray;
-        front = 0;
-        rear = size - 1;
-    }
-
     public static void main(String[] args) {
-        ArrayQueue<Integer> queue = new ArrayQueue();
+        LinkedQueue<Integer> queue = new LinkedQueue();
 
         queue.enqueue(1);
         queue.enqueue(2);
