@@ -34,29 +34,26 @@ public class Main {
         while (true) {
             System.out.println("Select a Queue implementation:");
             System.out.println("1. ArrayQueue");
-            System.out.println("2. LinkedListQueue");
+            System.out.println("2. CircularLinkedListQueue");
             System.out.println("3. LinkedQueue");
             System.out.println("4. Back to the main menu");
             choice = scanner.nextLine();
 
             switch (choice) {
                 case "1":
-                    // Implement ArrayQueue logic
                     System.out.println("You selected ArrayQueue.");
-                    // Replace with your ArrayQueue implementation
+                    ArrayQueue.main();
                     break;
                 case "2":
-                    // Implement LinkedListQueue logic
-                    System.out.println("You selected LinkedListQueue.");
-                    // Replace with your LinkedListQueue implementation
+                    System.out.println("You selected CircularLinkedListQueue.");
+                    CircularLinkedListQueue.main();
                     break;
                 case "3":
-                    // Implement LinkedQueue logic
                     System.out.println("You selected LinkedQueue.");
-                    // Replace with your LinkedQueue implementation
+                    LinkedQueue.main();
                     break;
                 case "4":
-                    return; // Back to the main menu
+                    return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }
@@ -75,22 +72,19 @@ public class Main {
 
             switch (choice) {
                 case "1":
-                    // Implement ArrayListStack logic
                     System.out.println("You selected ArrayListStack.");
-                    // Replace with your ArrayListStack implementation
+                    ArrayListStack.main();
                     break;
                 case "2":
-                    // Implement ArrayStack logic
                     System.out.println("You selected ArrayStack.");
-                    // Replace with your ArrayStack implementation
+                    ArrayStack.main();
                     break;
                 case "3":
-                    // Implement LinkedStack logic
                     System.out.println("You selected LinkedStack.");
-                    // Replace with your LinkedStack implementation
+                    LinkedStack.main();
                     break;
                 case "4":
-                    return; // Back to the main menu
+                    return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
             }

@@ -1,4 +1,5 @@
 import java.util.EmptyStackException;
+import java.util.Scanner;
 
 public class ArrayStack<E> implements Stack<E> {
     private static final int DEFAULT_CAPACITY = 10;
@@ -24,7 +25,7 @@ public class ArrayStack<E> implements Stack<E> {
             throw new EmptyStackException();
         }
         E item = array[--size];
-        array[size] = null; // Avoid memory leak
+        array[size] = null;
         return item;
     }
 
@@ -53,17 +54,54 @@ public class ArrayStack<E> implements Stack<E> {
         array = newArray;
     }
 
-    public static void main(String[] args) {
+    public static void main() {
         ArrayStack<Integer> stack = new ArrayStack<>();
+        Scanner scanner = new Scanner(System.in);
 
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
+        while (true) {
+            System.out.println("\nSelect an option:");
+            System.out.println("1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Peek");
+            System.out.println("4. Check Size");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
 
-        System.out.println("Top element: " + stack.peek()); // Should print 3
-
-        while (!stack.isEmpty()) {
-            System.out.println("Popped: " + stack.pop());
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter value to push: ");
+                    int valueToPush = scanner.nextInt();
+                    stack.push(valueToPush);
+                    System.out.println(valueToPush + " pushed onto the stack.");
+                    break;
+                case 2:
+                    try {
+                        int poppedValue = stack.pop();
+                        System.out.println(poppedValue + " popped from the stack.");
+                    } catch (EmptyStackException e) {
+                        System.out.println("Stack is empty. Cannot pop.");
+                    }
+                    break;
+                case 3:
+                    try {
+                        int peekedValue = stack.peek();
+                        System.out.println("Peeked value: " + peekedValue);
+                    } catch (EmptyStackException e) {
+                        System.out.println("Stack is empty. Cannot peek.");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Stack size: " + stack.size());
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+                    break;
+            }
         }
     }
 }
